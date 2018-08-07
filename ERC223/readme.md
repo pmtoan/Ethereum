@@ -18,7 +18,7 @@ uint public decimals;
 mapping(address => uint256) balances;
 ```  
 
-Constructor
+**Constructor**
 ```solidity
 constructor(string _name, string _symbol, uint _decimals, uint someCoin) public{
     name = _name;
@@ -33,16 +33,12 @@ constructor(string _name, string _symbol, uint _decimals, uint someCoin) public{
 event Transfer(address indexed from, address indexed to, uint256 indexed value, bytes data);
 ```  
 
-**ERC20 Functions**
+**Functions**
 ```solidity
 function balanceOf(address _owner) public view returns(uint256){
-	/* Return balance of a address */
+    /* Return balance of a address */
     return balances[_owner];
 }
-```  
-
-**New functions**
-```solidity
 function transfer(address _to, uint256 _value) public returns(bool){
     require(balances[msg.sender] >= _value);
     require(_to != 0x0);

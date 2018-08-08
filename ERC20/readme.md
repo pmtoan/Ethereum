@@ -65,4 +65,21 @@ function approve(address _spender, uint256 _value) public returns(bool status){
     emit Approval(msg.sender, _spender, _value);
     return true;
 }
-```
+```  
+
+### ERC20 token standard critical problems  
+
+**Lack of transaction handling**
+
+There are two ways of performing a transaction in ERC20 tokens: 
+
+* `transfer` function.   
+
+* `approve` + `transferFrom` mechanism.  
+
+The `transfer` function will not notify the recipient that transaction happened. The recipient will not be able to recognize the incoming transaction ([illustration here](https://docs.google.com/document/d/1fw7J1aNZ2tD1ws1Issu0djdL1-TLJ6BbNyF3LiMY1VE/edit?usp=sharing)).  
+Token balance is just a variable inside token contract.  
+
+Transaction of a token is a change in the internal variables of the contract (the `balance` of the sender will be decreased and the `balance` of the recipient will be increased).  
+
+As a result, if the recipient is a contract, users must transfer their tokens using the `approve` +` transferFrom` mechanism, and if the recipient is an externally owned account address, users must transfer their tokens via the `transfer` function. If a user will make a mistake and choose a wrong function then the token will get stuck inside contract (contract will not recognize a transaction). There will be no way to extract stuck tokens.

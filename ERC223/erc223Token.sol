@@ -39,6 +39,7 @@ contract erc223Token {
             receiver.tokenFallback(msg.sender, _value, empty);
         }
         emit Transfer(msg.sender, _to, _value, empty);
+        return true;
     }
 
     function transfer(address _to, uint256 _value, bytes _data) public returns(bool){
@@ -55,5 +56,6 @@ contract erc223Token {
             receiver.tokenFallback(msg.sender, _value, _data);
         }
         emit Transfer(msg.sender, _to, _value, _data);
+        return true;
     }
 }

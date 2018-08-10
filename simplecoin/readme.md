@@ -1,13 +1,13 @@
 ### Deploy SimpleCoin with truffle framwwork
 
-**Create truffle project**
+**Create truffle project**  
 ```bash
 mkdir simplecoin
 cd simplecoin
 truffle init
 ```  
 
-**Deploy contract**
+**Deploy contract**  
 Create file contracts/SimpleCoin.sol
 ```solidity
 pragma solidity ^0.4.18;
@@ -34,13 +34,13 @@ contract SimpleCoin{
 }
 ```  
 
-**Compile solidity**
+**Compile solidity**  
 ```bash
 truffle compile
 ```
 
-**Migrate contrct**
-Use [Ganache]() deploy a provate network
+**Migrate contrct**  
+Use [Ganache]() deploy a provate network  
 Edit file truffle.js
 ```javascript
 module.exports = {
@@ -60,25 +60,26 @@ module.exports = function(deployer) {
   	deployer.deploy(SimpleCoin);
 };
 ```  
-Migrate contract with command
+Migrate contract with command  
 ```bash
 truffle migrate
 ```  
 
-**Interacting with contract**
-1. Get ether balance of account
+**Interacting with contract**  
+1. Get ether balance of account  
 Code javascript (src/call.js)
 ```javascript
 module.exports = function(callback) {
 	console.log(web3.fromWei(web3.eth.getBalance(account_one).toNumber(), 'ether'));
 }
 ```  
-Run script
+Run script  
 ```bash
 truffle exec 'src/call.js'
 ```  
 
-2. Get SimpleCoin balance of account  
+2. Get SimpleCoin balance of account 
+
 Code javascript (src/call.js)  
 ```javascript
 module.exports = function(callback) {
@@ -97,8 +98,9 @@ Run script
 truffle exec 'src/call.js'
 ```  
 
-3. Make a transaction with SimpleCoin
-Code javascript (src/call.js)  
+3. Make a transaction with SimpleCoin  
+
+Code javascript (src/call.js)    
 ```javascript
 module.exports = function(callback) {
 	SimpleCoin.deployed().then(function(instance) {

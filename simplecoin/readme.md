@@ -83,9 +83,15 @@ truffle exec 'src/call.js'
 Code javascript (src/call.js)  
 ```javascript
 module.exports = function(callback) {
+	const artifacts = require('./../build/contracts/SimpleCoin.json')
+	const contract = require('truffle-contract')
+	const SimpleCoin = contract(artifacts);
+	SimpleCoin.setProvider(web3.currentProvider);
+	var account_one = "0x242E88935c968fa5c9E4a8c3795FE9b11772160f";
+	var meta;
 	SimpleCoin.deployed().then(function(instance) {
 	  	meta = instance;
-	  	return meta.balanceOf.call(account_two, {from: account_two});
+	  	return meta.balanceOf.call(account_one, {from: account_one});
 	}).then(function(result) {
 	  	console.log(result.toNumber());
 	}).catch(function(e) {
@@ -103,6 +109,13 @@ truffle exec 'src/call.js'
 Code javascript (src/call.js)    
 ```javascript
 module.exports = function(callback) {
+	const artifacts = require('./../build/contracts/SimpleCoin.json')
+	const contract = require('truffle-contract')
+	const SimpleCoin = contract(artifacts);
+	SimpleCoin.setProvider(web3.currentProvider);
+	var account_one = "0x242E88935c968fa5c9E4a8c3795FE9b11772160f";
+	var account_two = "0x81723B832A5A2BbCb35AD2b7643b21c4f60E9A56";
+	var meta;
 	SimpleCoin.deployed().then(function(instance) {
 	  	meta = instance;
 	  	return meta.transfer(account_two, 10, {from: account_one});

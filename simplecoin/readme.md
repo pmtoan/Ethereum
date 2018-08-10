@@ -39,7 +39,7 @@ contract SimpleCoin{
 truffle compile
 ```
 
-**Migrate contrct**  
+**Migrate contract**  
 Use [Ganache]() deploy a provate network  
 Edit file truffle.js
 ```javascript

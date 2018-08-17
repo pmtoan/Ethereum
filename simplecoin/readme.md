@@ -120,7 +120,18 @@ module.exports = function(callback) {
 	  	meta = instance;
 	  	return meta.transfer(account_two, 10, {from: account_one});
 	}).then(function(result) {
-	  	console.log("Transaction success");
+	  	var transInfo = web3.eth.getTransaction(result.receipt.transactionHash);
+	  	console.log("    hash: " + transInfo.hash);
+	  	console.log("    nonce: " + transInfo.nonce);
+	  	console.log("    blockHash: " + transInfo.blockHash);
+	  	console.log("    blockNumber: " + transInfo.blockNumber);
+	  	console.log("    transactionIndex: " + transInfo.transactionIndex);
+	  	console.log("    from: " + transInfo.from);
+	  	console.log("    to: " + transInfo.to);
+	  	console.log("    value: " + transInfo.value.toNumber());
+	  	console.log("    gas: " + transInfo.gas);
+	  	console.log("    gasPrice: " + transInfo.gasPrice.toNumber());
+	  	console.log("    input: " + transInfo.input);
 	}).catch(function(e) {
 	  	console.log("Transaction Error");
 	})

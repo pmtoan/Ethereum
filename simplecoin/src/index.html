@@ -1,26 +1,54 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>SimpleCoin with Ethereum Blockchain</title>
-	<script src="web3.min.js"></script>
-	<script src="truffle-contract.js"></script>
-	<script type="text/javascript">
-		window.onload = function () {
-			
-		}
-		function initWeb3() {
-			if (typeof web3 !== 'undefined') {
-  			App.web3Provider = web3.currentProvider;
-			} else {
-  				// If no injected web3 instance is detected, fall back to Ganache
-  				App.web3Provider = new Web3.providers.HttpProvider('http://localhost:7545');
-			}
-			web3 = new Web3(App.web3Provider);
-			return App.initContract();
-		}
-	</script>
+	<title>Test network</title>
+	<link rel="stylesheet" type="text/css" href="css/style.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script src="js/web3.min.js"></script>
+	<script src="js/truffle-contract.js"></script>
+	<script src="js/app.js"></script>
 </head>
 <body>
-
+	<div id="ether">
+		<h3>Send ether</h3>
+		<div id="ether-send">
+			<label>From   </label><input type="text" name="ethfrom" id="ethfrom"><br>
+			<label>To     </label><input type="text" name="ethto" id="ethto"><br>
+			<label>Value  </label><input type="text" name="ethvalue" id="ethvalue"><br>
+			<button id="eth-send-button">Send ether</button>
+		</div>
+		<div id="ethinfo">
+		
+		</div><br><br><br>
+		<h3>Get Ether balance account</h3>
+		<div id="etherget">
+			<label>Address </label><input type="text" name="ether-address" id="ether-address"><br>
+			<button name="ether-balance" id="ether-balance">BalanceOf</button>
+		</div>
+		<div id="ether-balance-info">
+		
+		</div>
+	</div>
+	<div id="simplecoin">
+		<h3>Send SimpleCoin</h3>
+		<div id="simplecoin-send">
+			<label>From   </label><input type="text" name="simplecoinfrom" id="simplecoinfrom"><br>
+			<label>To     </label><input type="text" name="simplecointo" id="simplecointo"><br>
+			<label>Value  </label><input type="text" name="simplecoinvalue" id="simplecoinvalue"><br>
+			<button id="simplecoin-send-button">Send SimpleCoin</button>
+		</div>
+		<div id="simplecoininfo">
+		
+		</div><br><br><br>
+		<h3>Get SimpleCoin balance account</h3>
+		<div id="simplecoinget">
+			<label>Address </label><input type="text" name="simplecoin-address" id="simplecoin-address"><br>
+			<button name="simplecoin-balance" id="simplecoin-balance">BalanceOf</button>
+		</div>
+		<div id="simplecoin-balance-info">
+		
+		</div>
+	</div>
 </body>
 </html>

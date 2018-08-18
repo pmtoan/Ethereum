@@ -3,7 +3,7 @@
 **Setup a ethereum private network**  
 Use [Ganache](https://truffleframework.com/ganache)   
 
-**Install a wallet**
+**Install a wallet**  
 Install [Metamask](https://metamask.io/) for Google Chrome  
 
 **Setup project**

@@ -13,6 +13,11 @@ app.get(
 );
 
 app.get(
+	'/js/jquery.min.js', 
+	(req, res) => res.sendFile(path.join(__dirname + '/js/jquery.min.js'))
+);
+
+app.get(
 	'/js/bootstrap.min.js',
 	(req, res) => res.sendFile(path.join(__dirname + '/js/bootstrap.min.js'))
 );

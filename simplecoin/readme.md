@@ -21,7 +21,7 @@ npm install express
 node app.js  
 ```  
 
-**Start webapp with pure reactJS/redux**  
+**Start webapp with reactJS/redux**  
 ```bash
 cd app
 npm install express

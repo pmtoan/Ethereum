@@ -14,11 +14,18 @@ truffle compile
 truffle migrate  
 ```  
 
-**Start webapp**  
+**Start webapp with pure js/jquery**  
 ```bash
 cd src
-npm install express --save  
+npm install express 
 node app.js  
+```  
+
+**Start webapp with pure reactJS/redux**  
+```bash
+cd app
+npm install express
+node app.js
 ```
 
 **Webapp running on port 3000**  

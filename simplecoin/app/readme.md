@@ -1,4 +1,4 @@
-###Deploy Dapp using ReactJS and redux  
+### Deploy Dapp using ReactJS and redux  
 
 **Create Contract, HashInfo GUI components base on React.Components**  
 ```javascript

@@ -22,14 +22,13 @@ contract ICM is Interface, Utils{
 		require(_address != 0x0);
 		return (wallets[_address].idc.name, wallets[_address].idc.idcNumber, wallets[_address].idc.date, wallets[_address].idc.place, wallets[_address].idc.license);
 	}
-	function getClaimById(uint256 _id) public constant returns(uint256 id, address to, address from, string status, string info){
+	function getClaimById(uint256 _id) public constant returns(uint256 id, address to, address from, string status, string name, string idcNumber, string date, string place, string license){
 		require(_id < nonce);
 		for(uint i=0;i<claims.length;i++){
 			if (claims[i].id == _id){
-				return (claims[i].id, claims[i].to, claims[i].from, claims[i].status, claims[i].info);
+				return (claims[i].id, claims[i].to, claims[i].from, claims[i].status, claims[i].idc.name, claims[i].idc.idcNumber, claims[i].idc.date, claims[i].idc.place, claims[i].idc.license);
 			}
 		}
-		return (_id, 0x0, 0x0, "", "");
 	}
 	function getClaimByRequester(address _from) public constant returns(uint256[] requestIDs){
 		require(_from != 0x0);
@@ -129,45 +128,71 @@ contract ICM is Interface, Utils{
 
 		return true;
 	}
-	function request(address _to, string _info) public returns(uint256 claimID){
+	function request(address _to, bool _name, bool _idcNumber, bool _date, bool _place, bool _license) public returns(uint256 claimID){
 		require(_to != 0x0);
-		require(bytes(_info).length != 0);
 		Claim memory buffer;
-		buffer.from = msg.sender;
-		buffer.to = _to;
-		buffer.info = _info;
-		buffer.status = "pending";
 		buffer.id = nonce;
 		nonce++;
+		buffer.from = msg.sender;
+		buffer.to = _to;
+		if (_name == true)
+			buffer.idc.name = "requested";
+		if (_idcNumber == true)
+			buffer.idc.idcNumber = "requested";
+		if (_date == true)
+			buffer.idc.date = "requested";
+		if (_place == true)
+			buffer.idc.place = "requested";
+		if (_license == true)
+			buffer.idc.license = "requested";
+		buffer.status = "pending";
 		claims.push(buffer);
 
-		emit Request(msg.sender, _to, _info);
+		emit Request(msg.sender, _to);
 
 		return buffer.id;
 	}
-	function approve(uint256 _requestID, bool _allowed) public returns(bool success){
-		require(_requestID != 0);
+	function approve(uint256 _requestID, bool _name, bool _idcNumber, bool _date, bool _place, bool _license) public returns(bool success){
+		require(_requestID >= 0);
+		require(_requestID < nonce);
 		for(uint i=0;i<claims.length;i++){
 			if (claims[i].id == _requestID){
-				if (_allowed == true){
-					claims[i].status = "allowed";
-					if (stringCompare(claims[i].info, "name") == true)
-						claims[i].info = wallets[claims[i].to].idc.name;
-					if (stringCompare(claims[i].info, "idcNumber") == true)
-						claims[i].info = wallets[claims[i].to].idc.idcNumber;
-					if (stringCompare(claims[i].info, "date") == true)
-						claims[i].info = wallets[claims[i].to].idc.date;
-					if (stringCompare(claims[i].info, "place") == true)
-						claims[i].info = wallets[claims[i].to].idc.place;
-					if (stringCompare(claims[i].info, "license") == true)
-						claims[i].info = wallets[claims[i].to].idc.license;
+				if (stringCompare(claims[i].idc.name, "requested")==true){
+					if (_name == true)
+						claims[i].idc.name = wallets[msg.sender].idc.name;
+					else
+						claims[i].idc.name = "rejected";
 				}
-				else
-					claims[i].status = "rejected";
+				if (stringCompare(claims[i].idc.idcNumber, "requested")==true){
+					if (_idcNumber == true)
+						claims[i].idc.idcNumber = wallets[msg.sender].idc.idcNumber;
+					else
+						claims[i].idc.idcNumber = "rejected";
+				}
+				if (stringCompare(claims[i].idc.date, "requested")==true){
+					if (_date == true)
+						claims[i].idc.date = wallets[msg.sender].idc.date;
+					else
+						claims[i].idc.date = "rejected";
+				}
+				if (stringCompare(claims[i].idc.place, "requested")==true){
+					if (_place == true)
+						claims[i].idc.place = wallets[msg.sender].idc.place;
+					else
+						claims[i].idc.place = "rejected";
+				}
+				if (stringCompare(claims[i].idc.license, "requested")==true){
+					if (_license == true)
+						claims[i].idc.license = wallets[msg.sender].idc.license;
+					else
+						claims[i].idc.license = "rejected";
+				}
+				
+				claims[i].status = "approved";
 			}
 		}
 
-		emit Approve(msg.sender, _requestID, _allowed);
+		emit Approve(msg.sender, _requestID);
 
 		return true;
 	}

@@ -62,6 +62,7 @@ const initHandler = () => {
     $("#btn-return-main-menu-from-view-info").click(function () {
         $("#view-info-area").hide(1000);
         $("#main-menu-area").show(1000);
+        viewInfo();
     });
 
     /* Make Request */
@@ -96,4 +97,9 @@ const initHandler = () => {
         $("#view-request-area").hide(1000);
         $("#main-menu-area").show(1000);
     });
+
+    $("#btn-mm-log-out").click(function () {
+        $("#main-menu-area").hide(1000);
+        $("#login-form-area").show(1000);
+    })
 }

@@ -221,6 +221,7 @@ class MainMenu extends React.Component{
 					<h3 class="h3">Requester Menu</h3>
 					<button class="btn btn-primary" id="btn-mm-request">Request</button><br />
 					<button class="btn btn-primary" id="btn-mm-view-approval">View Approval</button>
+					<button class="btn btn-primary" id="btn-mm-log-out">Log out</button>
 				</div>
 			</div>
 		)
